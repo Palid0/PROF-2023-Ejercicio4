@@ -16,8 +16,6 @@ pipeline {
 
                     // Restore previous data
                     sh 'sqlite3 Employees.db < backup.sql'
-
-                    sh 'sqlite3 Employees.db < script.sql'
                     
                     sh 'sqlite3 Employees.db \
                         ".mode column" \
