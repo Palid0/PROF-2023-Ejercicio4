@@ -1,0 +1,38 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Database Maintenance') {
+            steps {
+                script {
+                    sh 'wget -O Employees.db https://ruta/al/fichero/Employees.db'
+
+                    // Data backup
+                    sh 'sqlite3 Employees.db ".dump" > backup.sql'
+
+                    // Update Data
+                    sh 'sqlite3 Employees.db < drop.sql'
+                    sh 'sqlite3 Employees.db < sqlite.sql'
+
+                    // Restore previous data
+                    sh 'sqlite3 Employees.db < backup.sql'
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            script {
+                currentBuild.result = 'SUCCESS'
+                echo 'Database maintenance successful!'
+            }
+        }
+        failure {
+            script {
+                currentBuild.result = 'FAILURE'
+                echo 'Database maintenance failed!'
+            }
+        }
+    }
+}
