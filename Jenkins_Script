@@ -12,7 +12,6 @@ pipeline {
 
                     // Update Data
                     sh 'rm Employees.db'
-                    sh 'touch Employees.db'
                     sh 'sqlite3 Employees.db < sqlite.sql'
 
                     // Restore previous data
