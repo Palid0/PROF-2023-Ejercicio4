@@ -11,7 +11,8 @@ pipeline {
                     sh 'sqlite3 Employees.db ".dump" > backup.sql'
 
                     // Update Data
-                    sh 'sqlite3 Employees.db < drop.sql'
+                    sh 'rm Employees.db'
+                    sh 'touch Employees.db'
                     sh 'sqlite3 Employees.db < sqlite.sql'
 
                     // Restore previous data
