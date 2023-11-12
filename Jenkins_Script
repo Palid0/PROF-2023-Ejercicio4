@@ -16,6 +16,15 @@ pipeline {
 
                     // Restore previous data
                     sh 'sqlite3 Employees.db < backup.sql'
+
+                    sh 'sqlite3 Employees.db < script.sql'
+                    
+                    sh 'sqlite3 Employees.db \
+                        ".mode column" \
+                        ".headers on" \
+                        "select * \
+                        from employees, jobs \
+                        where jobs.job_id = 1 and employees.job_id = jobs.job_id;"'
                 }
             }
         }
