@@ -20,12 +20,12 @@ pipeline {
                 }
             }
         }
-        stage('Github Notify'){
-            steps {
-                script{
-                }    
-            }
-        }
+        // stage('Github Notify'){
+        //    steps {
+        //        script{
+        //        }    
+        //    }
+        // }
     }
 
                 }
