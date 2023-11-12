@@ -22,16 +22,18 @@ pipeline {
         }
         stage('Github Notify'){
             steps {
-                GITHUB_API_URL="https://api.github.com/repos/Palid0/PROF-2023-Ejercicio4/statuses/$(git rev-parse HEAD)"
-                ACCESS_TOKEN="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"
+                script{
+                    GITHUB_API_URL="https://api.github.com/repos/Palid0/PROF-2023-Ejercicio4/statuses/$(git rev-parse HEAD)"
+                    ACCESS_TOKEN="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"
 
-                # Estado exitoso
-                STATUS="success"
-                DESCRIPTION="Mantenimiento de base de datos exitoso"
-                CONTEXT="continuous-integration/jenkins"
+                    # Estado exitoso
+                    STATUS="success"
+                    DESCRIPTION="Mantenimiento de base de datos exitoso"
+                    CONTEXT="continuous-integration/jenkins"
 
-                # Enviar estado a GitHub
-                sh 'curl -s -H "Authorization: token $ACCESS_TOKEN" -d "{\"state\": \"$STATUS\", \"description\": \"$DESCRIPTION\", \"context\": \"$CONTEXT\"}" $GITHUB_API_URL'
+                    # Enviar estado a GitHub
+                    sh 'curl -s -H "Authorization: token $ACCESS_TOKEN" -d "{\"state\": \"$STATUS\", \"description\": \"$DESCRIPTION\", \"context\": \"$CONTEXT\"}" $GITHUB_API_URL'
+                }
             }
         }
     }
