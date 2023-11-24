@@ -20,7 +20,61 @@ pipeline {
                 }
             }
         }
-       
+
+        stage('Crea el Webhook en caso de que no exista') {
+            steps {
+                script {
+                    withCredentials([string(credentialsId: 'TOKEN_REPO_PROFESOR1', variable: 'GITHUB_TOKEN')]) {
+                        def existingWebhook = sh(
+                            script: 'curl -s -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/Luckvill/Test/hooks',
+                            returnStdout: true).trim()
+                        def URL = "http://" + sh(script: 'curl -s ifconfig.me', returnStdout: true).trim() + ":8080/ghprbhook/"
+
+                        // Verifica si el webhook ya existe en el repo, si no lo crea
+                        if (!existingWebhook.contains("$URL")) {
+                            createWebhook(GITHUB_TOKEN, URL)
+                        } else {
+                            echo 'El webhook ya existe.'
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+def createWebhook(token, webhookURL) {
+    def payload = [
+        name: 'web',
+        active: true,
+        events: ['pull_request'],
+        config: [
+            url: webhookURL,
+            content_type: 'json'
+        ]
+    ]
+
+    def apiUrl = 'https://api.github.com/repos/Luckvill/Test/hooks'
+    def headers = [
+        'Authorization': "token $token",
+        'Accept': 'application/vnd.github.v3+json'
+    ]
+
+    def response = httpRequest(
+        httpMode: 'POST',
+        url: apiUrl,
+        requestBody: groovy.json.JsonOutput.toJson(payload),
+        contentType: 'APPLICATION_JSON',
+        headers: headers
+    )
+
+    if (response.status == 201) {
+        echo 'Webhook creado exitosamente.'
+    } else {
+        error "Error al crear el webhook: ${response.status} - ${response.content}"
+    }
+}
+    
     }
 
     post {
