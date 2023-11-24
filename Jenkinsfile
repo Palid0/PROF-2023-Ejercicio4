@@ -24,17 +24,17 @@ pipeline {
         stage('Crea el Webhook en caso de que no exista') {
             steps {
                 script {
-                    withCredentials([string(credentialsId: 'TOKEN_REPO_PROFESOR1', variable: 'GITHUB_TOKEN')]) {
+                    withCredentials([string(credentialsId: 'Borrar', variable: 'GITHUB_TOKEN')]) {
                         def existingWebhook = sh(
                             script: 'curl -s -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/Luckvill/Test/hooks',
                             returnStdout: true).trim()
                         def URL = "http://" + sh(script: 'curl -s ifconfig.me', returnStdout: true).trim() + ":8080/ghprbhook/"
 
-                        // Verifica si el webhook ya existe en el repo, si no lo crea
+                        // Check if the webhook exists
                         if (!existingWebhook.contains("$URL")) {
                             createWebhook(GITHUB_TOKEN, URL)
                         } else {
-                            echo 'El webhook ya existe.'
+                            echo 'Webhook exists.'
                         }
                     }
                 }
