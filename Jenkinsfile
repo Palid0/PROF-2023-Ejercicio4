@@ -20,12 +20,7 @@ pipeline {
                 }
             }
         }
-        // stage('Github Notify'){
-        //    steps {
-        //        script{
-        //        }    
-        //    }
-        // }
+       
     }
 
     post {
