@@ -60,8 +60,10 @@ pipeline {
    post {
         success {
             script {
+                echo 'test. success'
                 // generate request
                 if (env.ghprbActualCommit != null) {
+                    echo 'msg_profesor'
                     def status = [
                             state: 'success',
                             description: 'GRISE-UPM > Managed to build pull request',
@@ -80,6 +82,7 @@ pipeline {
                     }
                     
                 } else {
+                    echo 'msg_Palid0'
                     def status = [
                             state: 'success',
                             description: 'Palid0 > Successfully maintained database',
@@ -101,8 +104,10 @@ pipeline {
         }
         failure {
             script {
+                echo 'test. failure'
                 // generate request
                 if (env.CHANGE_ID != null) {
+                    echo 'fallo_profesor'
                     def status = [
                             state: 'failure',
                             description: 'GRISE-UPM > Pull request could not be built',
@@ -120,6 +125,7 @@ pipeline {
                         """
                     }
                 } else {
+                    echo 'fallo_Palid0'
                     def status = [
                             state: 'failure',
                             description: 'Palid0 > Could not update database',
