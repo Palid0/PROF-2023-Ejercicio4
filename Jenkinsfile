@@ -93,7 +93,7 @@ pipeline {
                         -H "Authorization: token $TOKEN_EJ4" \
                         -H "Accept: application/vnd.github.v3+json" \
                         -d '${jsonPayload}' \
-                        https://api.github.com/repos/Palid0/Test/statuses/${RequestSHA}
+                        https://api.github.com/repos/Palid0/PROF-2023-Ejercicio4/statuses/${RequestSHA}
                         """
                     }
                 }
@@ -133,7 +133,7 @@ pipeline {
                         -H "Authorization: token $TOKEN_EJ4" \
                         -H "Accept: application/vnd.github.v3+json" \
                         -d '${jsonPayload}' \
-                        https://api.github.com/repos/Palid0/Test/statuses/${RequestSHA}
+                        https://api.github.com/repos/Palid0/PROF-2023-Ejercicio4/statuses/${RequestSHA}
                         """
                     }
                 }
