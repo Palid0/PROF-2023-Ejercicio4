@@ -75,7 +75,7 @@ pipeline {
                         -H "Authorization: token $TOKEN_EJ4" \
                         -H "Accept: application/vnd.github.v3+json" \
                         -d '${jsonPayload}' \
-                        https://api.github.com/repos/GRISE-UPM/PROF-2023-Ejercicio4/statuses/${pullRequestSHA}
+                        https://api.github.com/repos/GRISE-UPM/PROF-2023-Ejercicio4/statuses/${RequestSHA}
                         """
                     }
                     
@@ -116,7 +116,7 @@ pipeline {
                         -H "Authorization: token $TOKEN_EJ4" \
                         -H "Accept: application/vnd.github.v3+json" \
                         -d '${jsonPayload}' \
-                        https://api.github.com/repos/GRISE-UPM/PROF-2023-Ejercicio4/statuses/${pullRequestSHA}
+                        https://api.github.com/repos/GRISE-UPM/PROF-2023-Ejercicio4/statuses/${RequestSHA}
                         """
                     }
                 } else {
